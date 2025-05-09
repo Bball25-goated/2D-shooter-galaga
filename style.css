@@ -1,0 +1,28 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: black;
+  color: white;
+  text-align: center;
+}
+
+#gameCanvas {
+  display: block;
+  margin: 20px auto;
+  background-color: #111;
+  border: 2px solid white;
+}
+
+#mainMenu, #pauseMenu {
+  position: absolute;
+  top: 200px;
+  left: 0;
+  right: 0;
+}
+
+button {
+  font-size: 1.2em;
+  padding: 10px 20px;
+  margin-top: 10px;
+  cursor: pointer;
+}
