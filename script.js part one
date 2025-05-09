@@ -46,7 +46,49 @@ function togglePause() {
   document.getElementById("pauseMenu").style.display = isPaused ? "block" : "none";
   if (!isPaused) requestAnimationFrame(gameLoop);
 }
+const player = {
+  x: canvas.width / 2,
+  y: canvas.height - 60,
+  width: 40,
+  height: 20,
+  speed: 5,
+  shootCooldown: 0,
+};
 
+function spawnPlayer() {
+  player.x = canvas.width / 2;
+  player.y = canvas.height - 60;
+  player.shootCooldown = 0;
+}
+
+function shoot() {
+  if (player.shootCooldown <= 0) {
+    bullets.push({ x: player.x + player.width / 2 - 2, y: player.y, width: 4, height: 10 });
+    player.shootCooldown = 10;
+  }
+}
+
+function spawnEnemy() {
+  const size = 30 + Math.random() * 20;
+  enemies.push({
+    x: Math.random() * (canvas.width - size),
+    y: -size,
+    width: size,
+    height: size,
+    speed: 1 + level * 0.2,
+  });
+}
+
+function spawnPowerUp() {
+  powerUps.push({
+    x: Math.random() * (canvas.width - 20),
+    y: -20,
+    width: 20,
+    height: 20,
+    speed: 2,
+    type: "triple",
+  });
+}
 function resumeGame() {
   isPaused = false;
   document.getElementById("pauseMenu").style.display = "none";
