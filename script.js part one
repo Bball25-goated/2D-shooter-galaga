@@ -1,0 +1,54 @@
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+
+let keys = {};
+let bullets = [];
+let enemies = [];
+let powerUps = [];
+let achievements = [];
+let score = 0;
+let highScore = parseInt(localStorage.getItem("highScore")) || 0;
+let lives = 3;
+let level = 1;
+let isPaused = false;
+let gameRunning = false;
+
+document.addEventListener("keydown", (e) => {
+  keys[e.code] = true;
+  if (e.code === "Escape") togglePause();
+});
+
+document.addEventListener("keyup", (e) => {
+  keys[e.code] = false;
+});
+
+canvas.addEventListener("click", () => {
+  if (!gameRunning) startGame();
+});
+
+function startGame() {
+  document.getElementById("mainMenu").style.display = "none";
+  gameRunning = true;
+  lives = 3;
+  score = 0;
+  level = 1;
+  bullets = [];
+  enemies = [];
+  powerUps = [];
+  achievements = [];
+  spawnPlayer();
+  requestAnimationFrame(gameLoop);
+}
+
+function togglePause() {
+  if (!gameRunning) return;
+  isPaused = !isPaused;
+  document.getElementById("pauseMenu").style.display = isPaused ? "block" : "none";
+  if (!isPaused) requestAnimationFrame(gameLoop);
+}
+
+function resumeGame() {
+  isPaused = false;
+  document.getElementById("pauseMenu").style.display = "none";
+  requestAnimationFrame(gameLoop);
+}
